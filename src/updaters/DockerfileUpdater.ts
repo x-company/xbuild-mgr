@@ -36,7 +36,10 @@ export class DockerfileUpdater extends Updater {
             directory = path.join(this.options.directory, 'src', this.options.imageName);
         }
 
-        await fs.ensureDir(directory);
+        await /* TODO: JSFIX could not patch the breaking change:
+        Creating a directory with fs-extra no longer returns the path 
+        Suggested fix: The returned promise no longer includes the path of the new directory */
+        fs.ensureDir(directory);
 
         await this.updateDockerfile(directory);
         if (this.withProjectLayout) {

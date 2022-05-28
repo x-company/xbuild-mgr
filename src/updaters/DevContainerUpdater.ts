@@ -26,7 +26,10 @@ export class DevContainerUpdater extends Updater {
 
         const directory = path.join(this.options.directory, '.devcontainer');
         const ciDirectory = path.join(this.options.directory, '.ci');
-        await fs.ensureDir(directory);
+        await /* TODO: JSFIX could not patch the breaking change:
+        Creating a directory with fs-extra no longer returns the path 
+        Suggested fix: The returned promise no longer includes the path of the new directory */
+        fs.ensureDir(directory);
 
         await this.updateDevContainerFile(directory);
         // await this.updateDockerfile(this.options.directory);

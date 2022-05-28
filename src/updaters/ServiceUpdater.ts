@@ -50,7 +50,10 @@ export class ServiceUpdater extends Updater {
         const buildDir = path.join(this.options.directory, 'build');
         const serviceDir = path.join(buildDir, 'services', this.options.serviceName);
 
-        await fs.ensureDir(serviceDir);
+        await /* TODO: JSFIX could not patch the breaking change:
+        Creating a directory with fs-extra no longer returns the path 
+        Suggested fix: The returned promise no longer includes the path of the new directory */
+        fs.ensureDir(serviceDir);
 
         await this.updateBuildFile(serviceDir);
         await this.updateRunFile(serviceDir);
