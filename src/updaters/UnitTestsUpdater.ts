@@ -25,7 +25,10 @@ export class UnitTestsUpdater extends Updater {
         Log.info('Create Unit Tests');
 
         const directory = path.join(this.options.directory, 'tests', 'unit', this.options.imageName);
-        await fs.ensureDir(directory);
+        await /* TODO: JSFIX could not patch the breaking change:
+        Creating a directory with fs-extra no longer returns the path 
+        Suggested fix: The returned promise no longer includes the path of the new directory */
+        fs.ensureDir(directory);
         await this.updateBatsFile(directory);
     }
 
